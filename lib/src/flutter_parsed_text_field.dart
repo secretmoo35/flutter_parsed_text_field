@@ -306,7 +306,7 @@ class FlutterParsedTextFieldState extends State<FlutterParsedTextField> {
               followerAnchor: widget.suggestionPosition == SuggestionPosition.above ? Alignment.bottomCenter : Alignment.topCenter,
               targetAnchor: widget.suggestionPosition == SuggestionPosition.above ? Alignment.topCenter : Alignment.bottomCenter,
               showWhenUnlinked: false,
-              offset: Offset(0, widget.suggestionPosition == SuggestionPosition.above ? -8 : 8),
+              offset: Offset(0, widget.suggestionPosition == SuggestionPosition.above ? -8 : 250),
               child: Align(
                 alignment: widget.suggestionPosition == SuggestionPosition.above ? Alignment.bottomCenter : Alignment.topCenter,
                 child: Material(
