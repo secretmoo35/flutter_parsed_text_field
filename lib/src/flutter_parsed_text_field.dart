@@ -294,10 +294,28 @@ class FlutterParsedTextFieldState extends State<FlutterParsedTextField> {
           var size = renderBox.size;
           var spaceBelow = MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom - globalOffset.dy - size.height - 16;
           var spaceAbove = globalOffset.dy - MediaQuery.of(context).padding.top - kToolbarHeight - 16;
-           var cursorPos =
-                        _controller.selection.base.offset;
 
-                        print(cursorPos);
+          final selection = _controller.value.selection;
+          final text = _controller.value.text;
+          final before = selection.textBefore(text);
+          final after = selection.textAfter(text);
+
+          final span = TextSpan(text: before, style: TextStyle(fontSize: 16, fontFamily: 'BaiJamjureeXPoppins'));
+          final tp = TextPainter(text: span, textDirection: TextDirection.ltr);
+          tp.layout(maxWidth:MediaQuery.of(context).size.width - 34);
+          final int numLines = tp.computeLineMetrics().length - 1;
+          // print(numLines);
+          // print(text);
+          // print(after);
+
+          // int numLines = '\n'.allMatches(before).length;
+          int positionBelow = !widget.maxLines!.isNaN ? widget.maxLines ?? 0 : 1;
+          int positionBelowMinus = numLines * 20;
+          int defaultPositionBelow = positionBelow * 20;
+          double positionBelowResult = ((positionBelowMinus - defaultPositionBelow) - (widget.scrollController?.offset ?? 0)).toDouble();
+          print(positionBelowResult);
+          // print(widget.scrollController?.offset ?? 0);
+
           return Positioned(
             width: size.width,
             height: widget.suggestionPosition == SuggestionPosition.above ? spaceAbove : spaceBelow,
@@ -306,7 +324,7 @@ class FlutterParsedTextFieldState extends State<FlutterParsedTextField> {
               followerAnchor: widget.suggestionPosition == SuggestionPosition.above ? Alignment.bottomCenter : Alignment.topCenter,
               targetAnchor: widget.suggestionPosition == SuggestionPosition.above ? Alignment.topCenter : Alignment.bottomCenter,
               showWhenUnlinked: false,
-              offset: Offset(0, widget.suggestionPosition == SuggestionPosition.above ? -8 : 250),
+              offset: Offset(0, widget.suggestionPosition == SuggestionPosition.above ? -8 : positionBelowResult),
               child: Align(
                 alignment: widget.suggestionPosition == SuggestionPosition.above ? Alignment.bottomCenter : Alignment.topCenter,
                 child: Material(
