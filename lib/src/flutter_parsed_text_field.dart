@@ -294,7 +294,10 @@ class FlutterParsedTextFieldState extends State<FlutterParsedTextField> {
           var size = renderBox.size;
           var spaceBelow = MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom - globalOffset.dy - size.height - 16;
           var spaceAbove = globalOffset.dy - MediaQuery.of(context).padding.top - kToolbarHeight - 16;
+           var cursorPos =
+                        _controller.selection.base.offset;
 
+                        print(cursorPos);
           return Positioned(
             width: size.width,
             height: widget.suggestionPosition == SuggestionPosition.above ? spaceAbove : spaceBelow,
