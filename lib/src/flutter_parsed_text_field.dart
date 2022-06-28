@@ -292,7 +292,8 @@ class FlutterParsedTextFieldState extends State<FlutterParsedTextField> {
 
           var globalOffset = renderBox.localToGlobal(Offset.zero);
           var size = renderBox.size;
-          var spaceBelow = MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom - globalOffset.dy - size.height - 16;
+          // var spaceBelow = MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom - globalOffset.dy - size.height - 16;
+          // var spaceBelow = 250.0; // Fix suggest height
           var spaceAbove = globalOffset.dy - MediaQuery.of(context).padding.top - kToolbarHeight - 16;
 
           final selection = _controller.value.selection;
@@ -313,8 +314,6 @@ class FlutterParsedTextFieldState extends State<FlutterParsedTextField> {
           int positionBelowMinus = numLines * 20;
           int defaultPositionBelow = positionBelow * 20;
           double positionBelowResult = ((positionBelowMinus - defaultPositionBelow) - (widget.scrollController?.offset ?? 0)).toDouble();
-          print(positionBelowResult);
-          // print(widget.scrollController?.offset ?? 0);
 
           return Positioned(
             width: size.width,
